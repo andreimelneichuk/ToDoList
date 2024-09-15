@@ -12,13 +12,13 @@ import logging
 import aiohttp
 
 # Базовые настройки бота
-API_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+API_TOKEN = ''
 DJANGO_API_URL = "http://django:8000/api/"
 FASTAPI_URL = "http://fastapi:8001/comments/"
 
 # Логин и пароль для получения токена
-DJANGO_USERNAME = "my_username"
-DJANGO_PASSWORD = "YOUR_DJANGO_PASSWORD"
+DJANGO_USERNAME = ""
+DJANGO_PASSWORD = ""
 
 # Инициализация бота и диспетчера
 logging.basicConfig(level=logging.INFO)
