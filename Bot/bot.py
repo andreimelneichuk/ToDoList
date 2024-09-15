@@ -12,13 +12,13 @@ import logging
 import aiohttp
 
 # Базовые настройки бота
-API_TOKEN = '7278441677:AAE6o6B50DTEQkbvDmpFD7sHSJBO3k2jx2w'
+API_TOKEN = ''
 DJANGO_API_URL = "http://django:8000/api/"
 FASTAPI_URL = "http://fastapi:8001/comments/"
 
 # Логин и пароль для получения токена
-DJANGO_USERNAME = "my_username"
-DJANGO_PASSWORD = "my_password"
+DJANGO_USERNAME = ""
+DJANGO_PASSWORD = ""
 
 # Инициализация бота и диспетчера
 logging.basicConfig(level=logging.INFO)
