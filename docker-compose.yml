@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: database_name
+      POSTGRES_USER: database_user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    networks:
+      - app-network
+
+  django:
+    build:
+      context: ./django
+    environment:
+      DATABASE_URL: postgres://database_user:password@postgres:5432/database_name
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      DJANGO_SUPERUSER_PASSWORD: adminpassword
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+    ports:
+      - "8000:8000"
+    command: bash -c "
+            python manage.py makemigrations && \
+            python manage.py migrate && \
+            python manage.py runserver 0.0.0.0:8000"
+
+  fastapi:
+    build:
+      context: ./fastapi
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "8001:8001"
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]  # Замена localhost
+
+  bot:
+    build:
+      context: ./bot
+    depends_on:
+      - fastapi
+      - redis
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
