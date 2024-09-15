@@ -38,7 +38,7 @@
 
 #### Использование
 
-- **Django API:** Доступен по адресу [http://localhost:8000](http://localhost:8000). Для доступа к административной панели используйте URL [http://localhost:8000/admin](http://localhost:8000/admin) и логин `admin` с паролем `adminpassword`.
+- **Django API:** Доступен по адресу [http://localhost:8000](http://localhost:8000). Для доступа к административной панели используйте URL [http://localhost:8000/admin](http://localhost:8000/admin).
 
 - **FastAPI API:** Доступен по адресу [http://localhost:8001](http://localhost:8001).
 
