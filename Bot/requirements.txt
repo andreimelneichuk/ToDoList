@@ -1,0 +1,4 @@
+aiogram==2.25.2
+aiogram-dialog>=1.0.0
+requests>=2.28.1
+django-extensions
