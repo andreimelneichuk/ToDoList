@@ -13,6 +13,11 @@ services:
       - "5432:5432"
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U database_user -d database_name"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:latest
@@ -28,7 +33,8 @@ services:
       DJANGO_SUPERUSER_EMAIL: admin@example.com
       DJANGO_SUPERUSER_PASSWORD: adminpassword
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - app-network
     ports:
@@ -36,6 +42,7 @@ services:
     command: bash -c "
             python manage.py makemigrations && \
             python manage.py migrate && \
+            python create_admin.py &&\
             python manage.py runserver 0.0.0.0:8000"
 
   fastapi:
@@ -47,7 +54,7 @@ services:
       - app-network
     ports:
       - "8001:8001"
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]  # Замена localhost
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
 
   bot:
     build:

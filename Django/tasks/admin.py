@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Task, Category
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'due_date', 'category', 'is_completed', 'user')
+    list_display = ('id', 'title', 'due_date', 'category', 'is_completed', 'user')  # Добавлено поле 'id'
     list_filter = ('is_completed', 'due_date', 'category')
     search_fields = ('title',)
 
