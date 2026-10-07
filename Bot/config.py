@@ -1,4 +1,6 @@
-API_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+import os
+
+API_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 DJANGO_API_URL = "http://django:8000/api/"
 FASTAPI_URL = "http://fastapi:8001/comments/"
 

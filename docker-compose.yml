@@ -26,8 +26,9 @@ services:
 
   django:
     build:
-      context: ./django
+      context: ./Django
     environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-django-insecure-dev-key-replace-me}
       DATABASE_URL: postgres://database_user:password@postgres:5432/database_name
       DJANGO_SUPERUSER_USERNAME: admin
       DJANGO_SUPERUSER_EMAIL: admin@example.com
@@ -47,7 +48,7 @@ services:
 
   fastapi:
     build:
-      context: ./fastapi
+      context: ./FastAPI
     depends_on:
       - redis
     networks:
@@ -58,7 +59,9 @@ services:
 
   bot:
     build:
-      context: ./bot
+      context: ./Bot
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
     depends_on:
       - fastapi
       - redis
